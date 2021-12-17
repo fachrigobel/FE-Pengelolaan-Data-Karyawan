@@ -2,7 +2,6 @@ import axios from "axios";
 import React from "react";
 import { Fragment } from "react";
 import { useState } from "react";
-import { Redirect } from "react-router-dom";
 
 function Form() {
   const [nip, setnip] = useState("");
@@ -14,12 +13,14 @@ function Form() {
 
   const addKaryawan = async (event) => {
     event.preventDefault();
+
     const data = { nip, nama, alamat, nohp, role, status };
     const res = await axios.post("http://localhost:8080/karyawan", data);
 
-    console.log(res);
-
-    window.history.back();
+    if (res.status === 200) {
+      sessionStorage.setItem("action", "add");
+      window.history.back();
+    }
   };
 
   return (
@@ -35,6 +36,7 @@ function Form() {
             id="nip"
             autoComplete="off"
             onChange={(e) => setnip(e.target.value)}
+            required
           />
         </div>
         <div className="mb-3">
@@ -47,6 +49,7 @@ function Form() {
             id="nama"
             autoComplete="off"
             onChange={(e) => setnama(e.target.value)}
+            required
           />
         </div>
         <div className="mb-3">
@@ -59,6 +62,7 @@ function Form() {
             id="alamat"
             autoComplete="off"
             onChange={(e) => setalamat(e.target.value)}
+            required
           />
         </div>
         <div className="mb-3">
@@ -71,6 +75,7 @@ function Form() {
             id="nohp"
             autoComplete="off"
             onChange={(e) => setnohp(e.target.value)}
+            required
           />
         </div>
         <div className="mb-3">

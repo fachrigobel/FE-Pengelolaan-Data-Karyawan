@@ -9,6 +9,8 @@ function MiniModal(props) {
         `http://localhost:8080/karyawan/${props.nipKaryawan}`
       );
     }
+    sessionStorage.setItem("action", "delete");
+    props.checkAction();
     await props.getDataKaryawan();
   };
 

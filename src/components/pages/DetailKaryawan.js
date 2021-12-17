@@ -38,7 +38,7 @@ function DetailKaryawan() {
     );
 
     console.log(res);
-
+    sessionStorage.setItem("action", "update");
     window.history.back();
   };
 

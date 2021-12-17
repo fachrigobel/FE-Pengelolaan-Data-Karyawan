@@ -15,9 +15,43 @@ function Karyawan() {
     return setdataKaryawan(res.data);
   };
 
+  const checkAction = () => {
+    const alert = document.querySelector(".alert");
+
+    if (sessionStorage.getItem("action") == "add") {
+      alert.classList.add("alert-success");
+      alert.classList.remove("d-none");
+      alert.innerHTML = `
+        <span>
+          <b> Success - </b> Data Berhasil Ditambahkan!
+        </span>`;
+      sessionStorage.removeItem("action");
+    } else if (sessionStorage.getItem("action") == "delete") {
+      alert.classList.add("alert-success");
+      alert.classList.remove("d-none");
+      alert.innerHTML = `
+        <span>
+          <b> Success - </b> Data Berhasil Dihapus!
+        </span>`;
+      sessionStorage.removeItem("action");
+    } else if (sessionStorage.getItem("action") == "update") {
+      alert.classList.add("alert-success");
+      alert.classList.remove("d-none");
+      alert.innerHTML = `
+        <span>
+          <b> Success - </b> Data Berhasil Diubah!
+        </span>`;
+      sessionStorage.removeItem("action");
+    }
+  };
+
   useEffect(() => {
     getDataKaryawan();
   }, []);
+
+  useEffect(() => {
+    checkAction();
+  }, [sessionStorage]);
 
   return (
     <Fragment>
@@ -46,6 +80,7 @@ function Karyawan() {
                   </div>
                 </div>
               </div>
+              <div className="alert d-none"></div>
               <table className="table table-hover">
                 <thead>
                   <tr>
@@ -99,7 +134,11 @@ function Karyawan() {
           </div>
         </div>
       </div>
-      <MiniModal nipKaryawan={nipKaryawan} getDataKaryawan={getDataKaryawan} />
+      <MiniModal
+        nipKaryawan={nipKaryawan}
+        getDataKaryawan={getDataKaryawan}
+        checkAction={checkAction}
+      />
     </Fragment>
   );
 }
