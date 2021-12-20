@@ -3,7 +3,6 @@ import { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import BtnSearch from "../BtnSearch";
 import MiniModal from "../MiniModal";
 
 function Karyawan() {
@@ -12,6 +11,11 @@ function Karyawan() {
 
   const getDataKaryawan = async () => {
     const res = await axios.get("http://localhost:8080/karyawan");
+    return setdataKaryawan(res.data);
+  };
+
+  const searchKaryawan = async (keyword) => {
+    const res = await axios.get("http://localhost:8080/search/" + keyword);
     return setdataKaryawan(res.data);
   };
 
@@ -65,7 +69,7 @@ function Karyawan() {
             <div className="card-body table-full-width table-responsive">
               <div className="menu-table my-2">
                 <div className="row">
-                  <div className="col-8">
+                  <div className="col-9">
                     <Link
                       to={"/addKaryawan"}
                       className="btn btn-info btn-fill btn-wd text-white"
@@ -75,8 +79,23 @@ function Karyawan() {
                       Tambah Karyawan
                     </Link>
                   </div>
-                  <div className="col-4">
-                    <BtnSearch />
+                  <div className="col-3">
+                    <div className="input-group mb-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Cari Karyawan"
+                        aria-label="Recipient's username"
+                        aria-describedby="basic-addon2"
+                        onChange={(e) => {
+                          if (e.target.value.length == 0) {
+                            getDataKaryawan();
+                          } else {
+                            searchKaryawan(e.target.value);
+                          }
+                        }}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
