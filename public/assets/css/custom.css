@@ -5,3 +5,11 @@
   top: 50%;
   transform: translate(-50%, -50%) !important;
 }
+
+.login {
+  height: 100vh;
+}
+.login .card {
+  box-shadow: 0px 5px 20px -10px black;
+  padding: 25px;
+}

@@ -1,8 +1,12 @@
 import React from "react";
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import ValidateUser from "../ValidateUser";
 
 function Navbar() {
+  const [login, setlogin] = useRecoilState(ValidateUser);
+
   return (
     <Fragment>
       <nav className="navbar navbar-expand-lg " color-on-scroll="500">
@@ -33,6 +37,20 @@ function Navbar() {
                 <a href="#" className="nav-link" data-toggle="dropdown">
                   <span className="d-lg-none">Dashboard</span>
                 </a>
+              </li>
+            </ul>
+            <ul className="navbar-nav ml-auto">
+              <li className="nav-item">
+                <button
+                  className="nav-link border-0 bg-transparent"
+                  style={{ cursor: "pointer" }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setlogin(false);
+                  }}
+                >
+                  <span className="no-icon">Log out</span>
+                </button>
               </li>
             </ul>
           </div>
